@@ -182,7 +182,7 @@ function setClustersViews(locations) {
 			animation: google.maps.Animation.DROP,
 			position: locations[index].latlng,
 			title: locations[index].address.replace(/(&nbsp)/g," "),
-			icon: pimImage
+			icon: pinImage
 		});
         oneMarkerAtTime();
     }
