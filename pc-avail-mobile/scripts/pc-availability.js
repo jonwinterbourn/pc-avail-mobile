@@ -113,7 +113,7 @@ function clustersShow(e) {
 	$("#clustersNavigate").kendoMobileButtonGroup({
 		select: function() {
 			if (this.selectedIndex == 0) {
-				$("#sclusterswrap").hide();
+				$("#clusterswrap").hide();
 				$("#mapwrap").show();
 				google.maps.event.trigger(map, "resize");
 			}
