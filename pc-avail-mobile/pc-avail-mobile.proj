@@ -58,6 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\cofeeCup-sprite.png" />
+    <Content Include="images\computers.png" />
+    <Content Include="images\computers_amber.png" />
+    <Content Include="images\computers_black.png" />
+    <Content Include="images\computers_red.png" />
     <Content Include="images\holiday.png" />
     <Content Include="index.html" />
     <Content Include="kendo\js\jquery.min.js" />

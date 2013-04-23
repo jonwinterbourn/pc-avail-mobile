@@ -168,10 +168,7 @@ function onGeolocationError(error) {
 function setClustersViews(locations) {
 	var pinColor = "66CCFF";
 
-     var pinImage = new google.maps.MarkerImage("../images/cofeeCup-sprite.png",
-      new google.maps.Size(49, 49),
-      new google.maps.Point(0,202),
-      new google.maps.Point(0, 32));
+     var pinImage = new google.maps.MarkerImage("../images/computers.png");
     
 	var marker,
     currentMarkerIndex = 0;
