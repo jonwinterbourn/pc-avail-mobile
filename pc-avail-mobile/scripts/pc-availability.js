@@ -9,7 +9,7 @@ cachedLocations = [];
 // Cordova is ready
 function onDeviceReady() {
     
-    getLocation();
+    //getLocation();
     navigator.splashscreen.hide();
     
     getInitialClustersData();
@@ -18,9 +18,10 @@ function onDeviceReady() {
     
 }
 
-function getLocation() {
-    navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { enableHighAccuracy: true });
-}
+//function getLocation() {
+//    navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { enableHighAccuracy: true });
+//}
+
 
 
 //======================= News etc ==========================================//
@@ -84,33 +85,124 @@ function listViewClustersInit() {
    
 }
 
-
-
 //=======================Geolocation Operations=======================//
 // onGeolocationSuccess Geolocation
-function onGeolocationSuccess(position) {
-    // Use Google API to get the location data for the current coordinates
-    var geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    geocoder.geocode({ "latLng": latlng }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            if ((results.length > 1) && results[1]) {
-                $("#myLocation").html(results[1].formatted_address);
-            }
-        }
-    });
 
-    // Use Google API to get a map of the current location
-    // http://maps.googleapis.com/maps/api/staticmap?size=280x300&maptype=hybrid&zoom=16&markers=size:mid%7Ccolor:red%7C42.375022,-71.273729&sensor=true
-    var googleApis_map_Url = 'http://maps.googleapis.com/maps/api/staticmap?size=300x300&maptype=hybrid&zoom=16&sensor=true&markers=size:mid%7Ccolor:red%7C' + latlng;
-    var mapImg = '<img src="' + googleApis_map_Url + '" />';
-    $("#map_canvas").html(mapImg);
+function getPosition(handler) {
+	navigator.geolocation.getCurrentPosition(handler, onGeolocationError, { enableHighAccuracy: true });
 }
 
-// onGeolocationError Callback receives a PositionError object
+function getLocations(position, handler) {
+	$.getJSON("http://www.starbucks.com/api/location.ashx?&features=&lat=" + position.coords.latitude + "&long=" + position.coords.longitude + "&limit=10",
+			  function(data) {
+				  var locations = [];
+				  $.each(data, function() {
+					  locations.push(
+						  {
+						  address: this.WalkInAddressDisplayStrings[0] + ", " + this.WalkInAddressDisplayStrings[1], 
+						  latlng: new google.maps.LatLng(this.WalkInAddress.Coordinates.Latitude, this.WalkInAddress.Coordinates.Longitude)
+					  });                
+				  });
+				  handler(locations);
+			  }).error(function(error) {
+				  alert(error.message);
+			  });
+}
+
+function clustersShow(e) {
+	$("#clustersNavigate").kendoMobileButtonGroup({
+		select: function() {
+			if (this.selectedIndex == 0) {
+				$("#sclusterswrap").hide();
+				$("#mapwrap").show();
+				google.maps.event.trigger(map, "resize");
+			}
+			else if (this.selectedIndex == 1) {
+				$("#mapwrap").hide();
+				$("#clusterswrap").show();
+			}
+		},
+		index: 0
+	});
+    
+    var iteration = function() {
+		getPosition(function(position) {
+			// Use Google API to get the location data for the current coordinates
+			var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            
+			var myOptions = {
+				zoom: 12,
+				center: latlng,
+				mapTypeControl: false,
+				navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL },
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			mapElem = new google.maps.Map(document.getElementById("map"), myOptions);
+			var marker = new google.maps.Marker({
+				position: latlng,
+				map: mapElem,
+				title: "Your Location",
+                zIndex:google.maps.Marker.MAX_ZINDEX
+			});
+        
+			if (cachedLocations.length > 0) {
+				setClustersViews(cachedLocations);
+			}
+			else {
+            	
+				getLocations(position, function(locations) {
+					cachedLocations = locations;
+					setClustersViews(locations);
+				});
+			}
+		});
+	};
+	iteration();
+    
+}
+
 function onGeolocationError(error) {
-    $("#myLocation").html("<span class='err'>" + error.message + "</span>");
+	alert(error.message);
 }
 
+function setClustersViews(locations) {
+	var pinColor = "66CCFF";
+
+     var pinImage = new google.maps.MarkerImage("../images/cofeeCup-sprite.png",
+      new google.maps.Size(49, 49),
+      new google.maps.Point(0,202),
+      new google.maps.Point(0, 32));
+    
+	var marker,
+    currentMarkerIndex = 0;
+    function createMarker(index){
+        if(index<locations.length)
+        marker = new google.maps.Marker({
+			map: mapElem,
+			animation: google.maps.Animation.DROP,
+			position: locations[index].latlng,
+			title: locations[index].address.replace(/(&nbsp)/g," "),
+			icon: pimImage
+		});
+        oneMarkerAtTime();
+    }
+    
+	createMarker(0);
+    function oneMarkerAtTime()
+    {
+        google.maps.event.addListener(marker,"animation_changed",function()
+        {
+           if(marker.getAnimation()==null)
+            {
+                createMarker(currentMarkerIndex+=1);
+            }
+        });
+    }
+	
+	$("#clusters-listview").kendoMobileListView({
+		dataSource: kendo.data.DataSource.create({ data: locations}),
+		template: $("#clusters-listview-template").html()
+	});
+}
 
 
