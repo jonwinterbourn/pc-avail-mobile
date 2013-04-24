@@ -110,15 +110,20 @@ function getLocations(position, handler) {
 }
 
 function getBuildingLocations(position, handler) {
-    var locations = [];
-    $.each(initialBuildings, function() {
-	    locations.push(
-		{
-		    address: this.buildingName + ", " + this.location[1], 
-			latlng: new google.maps.LatLng(this.lat, this.long)
-		});                
-	});
-	handler(locations);   
+    $.getJSON("http://www.birmingham.ac.uk/web_services/Maps.svc/54448/buildings/",
+			function(data) {
+                var locations = [];
+                $.each(data, function() {
+	                locations.push(
+		                {    
+		                address: this.BuildingName, 
+			            latlng: new google.maps.LatLng(this.PolygonCoordinatesAsArrayList[0][0], this.PolygonCoordinatesAsArrayList[0][1])
+		            });                
+	            });
+	            handler(locations);   
+            }).error(function(error) {
+				  alert(error.message);
+			});
 }
 
 function clustersShow(e) {
@@ -163,7 +168,7 @@ function clustersShow(e) {
 			}
 			else {
             	
-				getLocations(position, function(locations) {
+				getBuildingLocations(position, function(locations) {
                     
 					cachedLocations = locations;
 					setClustersViews(locations);

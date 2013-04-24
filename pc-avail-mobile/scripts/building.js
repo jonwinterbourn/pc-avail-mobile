@@ -74,6 +74,8 @@ initialBuildingData.prototype = function() {
 		return JSON.stringify(initialBuildings);
 	};
     
+    
+    
 	return {
 		getInitialBuildingsData:getInitialBuildingsData,
 	};
