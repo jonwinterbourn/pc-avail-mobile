@@ -6,15 +6,14 @@ initialBuildingData.prototype = function() {
         "buildingId":1,
         "buildingName":"Main library",
         "numberOfPcs":149,
-        "location":"",
-        "openingHours":""
-    },
-    {
+        "location":"test location",
+        "openingHours":"all day"
+    },{
         "buildingId":2,
         "buildingName":"Learning Centre",
         "numberOfPcs":345,
-        "location":"",
-        "openingHours":""
+        "location":"test data",
+        "openingHours":"all day and night"
     }],
 
 	getInitialBuildingsData = function() {

@@ -59,7 +59,7 @@ var buildingsData = kendo.observable({
 		}
 		for (i = 0; i < buildings.length; i+=1) {
 			this._buildingIds[buildings[i].buildingId] = i;
-            alert(buildings[i].buildingId)
+            //alert(buildings[i].buildingId)
 		}
 		buildingsData.set("buildings", buildings);
 	},
@@ -108,7 +108,7 @@ function getLocations(position, handler) {
 }
 
 function clustersShow(e) {
-    $("#clusterswrap").hide();
+    //$("#clusterswrap").hide();
 	$("#clustersNavigate").kendoMobileButtonGroup({
 		select: function() {
 			if (this.selectedIndex == 0) {
@@ -137,12 +137,12 @@ function clustersShow(e) {
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			mapElem = new google.maps.Map(document.getElementById("map"), myOptions);
-			/*var marker = new google.maps.Marker({
+			var marker = new google.maps.Marker({
 				position: latlng,
 				map: mapElem,
 				title: "Your Location",
                 zIndex:google.maps.Marker.MAX_ZINDEX
-			});*/
+			});
         
 			if (cachedLocations.length > 0) {
 				setClustersViews(cachedLocations);
@@ -165,7 +165,7 @@ function onGeolocationError(error) {
 }
 
 function setClustersViews(locations) {
-	/*var pinColor = "66CCFF";*/
+	var pinColor = "66CCFF";
 
      var pinImage = new google.maps.MarkerImage("images/computers.png");
     
@@ -196,7 +196,7 @@ function setClustersViews(locations) {
     }
 	
 	$("#clusters-listview").kendoMobileListView({
-		dataSource: kendo.data.DataSource.create({ data: locations}),
+		dataSource: kendo.data.DataSource.create({ data: clusters}),
 		template: $("#clusters-listview-template").html()
 	});
 }
