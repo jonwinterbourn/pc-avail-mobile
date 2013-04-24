@@ -109,6 +109,18 @@ function getLocations(position, handler) {
 			  });
 }
 
+function getBuildingLocations(position, handler) {
+    var locations = [];
+    $.each(buildings, function() {
+	    locations.push(
+		{
+		    address: this.buildingName + ", " + this.location[1], 
+			latlng: new google.maps.LatLng(this.lat, this.long)
+		});                
+	});
+	handler(locations);   
+}
+
 function clustersShow(e) {
     //$("#clusterswrap").hide();
 	$("#clustersNavigate").kendoMobileButtonGroup({
@@ -152,6 +164,7 @@ function clustersShow(e) {
 			else {
             	
 				getLocations(position, function(locations) {
+                    
 					cachedLocations = locations;
 					setClustersViews(locations);
 				});
