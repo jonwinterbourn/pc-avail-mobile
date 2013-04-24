@@ -111,7 +111,7 @@ function getLocations(position, handler) {
 
 function getBuildingLocations(position, handler) {
     var locations = [];
-    $.each(buildings, function() {
+    $.each(buildingsData.buildings, function() {
 	    locations.push(
 		{
 		    address: this.buildingName + ", " + this.location[1], 
@@ -163,7 +163,7 @@ function clustersShow(e) {
 			}
 			else {
             	
-				getLocations(position, function(locations) {
+				getBuildingLocations(position, function(locations) {
                     
 					cachedLocations = locations;
 					setClustersViews(locations);
