@@ -12,9 +12,9 @@ function onDeviceReady() {
     //getLocation();
     navigator.splashscreen.hide();
     
-    getInitialClustersData();
-    clustersData.init();
-	clustersData.clusters.bind("change", writeIntoLocalStorage);
+    getInitialBuildingsData();
+    buildingsData.init();
+	buildingsData.buildings.bind("change", writeIntoLocalStorage);
     
 }
 
@@ -38,50 +38,48 @@ function announcementListViewTemplatesInit() {
 	});
 }
 
-//======================= Clusters Operations ===============================//
+//======================= Buildings/Clusters Operations ===============================//
 
-function getInitialClustersData(){
-    if(window.localStorage.getItem("clusters")===null)
+function getInitialBuildingsData(){
+    if(window.localStorage.getItem("buildings")===null)
     {
-        var clusterData = new initialClusterData(),
-        initialClusters = clusterData.getInitialClustersData();
-        localStorage.setItem("clusters",initialClusters);
+        var buildingData = new initialBuildingData(),
+        initialBuildings = buildingData.getInitialBuildingsData();
+        localStorage.setItem("buildings",initialBuildings);
     }
 }
 
-var clustersData = kendo.observable({
+var buildingsData = kendo.observable({
 	init:function() {
 		var i;
-		this._clusterIds = {};
-        var clusters=[];
-		if (window.localStorage.getItem("clusters") !== null) {
-            clusters = JSON.parse(window.localStorage.getItem("clusters"));
+		this._buildingIds = {};
+        var buildings=[];
+		if (window.localStorage.getItem("buildings") !== null) {
+            buildings = JSON.parse(window.localStorage.getItem("buildings"));
 		}
-        //alert(clusters);
-        //alert(clusters.length);
-		for (i = 0; i < clusters.length; i+=1) {
-			this._clusterIds[clusters[i].clusterId] = i;
-            //alert(clusters[i].clusterId)
+		for (i = 0; i < buildings.length; i+=1) {
+			this._buildingIds[buildings[i].buildingId] = i;
+            alert(buildings[i].buildingId)
 		}
-		clustersData.set("clusters", clusters);
+		buildingsData.set("buildings", buildings);
 	},
-	clusterIds: function(value) {
+	buildingIds: function(value) {
 		if (value) {
-			this._clusterIds = value;
+			this._buildingIds = value;
 		}
 		else {
-			return this._clusterIds;
+			return this._buildingIds;
 		}
 	},
-	clusters : []
+	buildings : []
 });
 
 function writeIntoLocalStorage(e) {
-	var dataToWrite = JSON.stringify(clustersData.clusters);
-	window.localStorage.setItem("clusters", dataToWrite);
+	var dataToWrite = JSON.stringify(buildingsData.buildings);
+	window.localStorage.setItem("buildings", dataToWrite);
 }
 
-function listViewClustersInit() {
+function listViewBuildingsInit() {
    
 }
 
@@ -110,6 +108,7 @@ function getLocations(position, handler) {
 }
 
 function clustersShow(e) {
+    $("#clusterswrap").hide();
 	$("#clustersNavigate").kendoMobileButtonGroup({
 		select: function() {
 			if (this.selectedIndex == 0) {
@@ -138,12 +137,12 @@ function clustersShow(e) {
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			mapElem = new google.maps.Map(document.getElementById("map"), myOptions);
-			var marker = new google.maps.Marker({
+			/*var marker = new google.maps.Marker({
 				position: latlng,
 				map: mapElem,
 				title: "Your Location",
                 zIndex:google.maps.Marker.MAX_ZINDEX
-			});
+			});*/
         
 			if (cachedLocations.length > 0) {
 				setClustersViews(cachedLocations);
@@ -166,9 +165,9 @@ function onGeolocationError(error) {
 }
 
 function setClustersViews(locations) {
-	var pinColor = "66CCFF";
+	/*var pinColor = "66CCFF";*/
 
-     var pinImage = new google.maps.MarkerImage("../images/computers.png");
+     var pinImage = new google.maps.MarkerImage("images/computers.png");
     
 	var marker,
     currentMarkerIndex = 0;

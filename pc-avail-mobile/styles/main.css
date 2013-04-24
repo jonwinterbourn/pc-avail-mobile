@@ -24,3 +24,49 @@ body
     color: black;
     padding: 7px;
 }
+
+#map {
+    width:100%;
+    height:100%;
+    position:absolute;
+}
+
+/* announcements */
+
+#announcements {
+    margin:12px;
+    padding: 3px;
+    background: rgba(255, 255, 255,0.7);
+    border-radius:6px;
+}
+
+#announcements li {
+    background-color:transparent;
+}
+
+#announcements-listview .item-title {
+    float:left;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    margin: 0 0 0 0.8em;
+    width:61%;
+}
+
+#announcents .item-info {
+    float:left;
+    font-size: 1em;
+    font-weight:100;
+    line-height: 1em;
+    margin: 0 0 0 1em;
+    width:61%;
+}
+
+.km-ios #home .km-list {
+    border-radius: 3px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance:none;
+    margin:0;
+}
