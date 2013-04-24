@@ -163,17 +163,17 @@ function clustersShow(e) {
                 zIndex:google.maps.Marker.MAX_ZINDEX
 			});
         
-			if (cachedLocations.length > 0) {
-				setClustersViews(cachedLocations);
-			}
-			else {
+			//if (cachedLocations.length > 0) {
+			//	setClustersViews(cachedLocations);
+			//}
+			//else {
             	
 				getBuildingLocations(position, function(locations) {
                     
 					cachedLocations = locations;
 					setClustersViews(locations);
 				});
-			}
+			//}
 		});
 	};
 	iteration();
