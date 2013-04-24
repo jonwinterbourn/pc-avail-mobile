@@ -57,6 +57,8 @@ var buildingsData = kendo.observable({
 		if (window.localStorage.getItem("buildings") !== null) {
             buildings = JSON.parse(window.localStorage.getItem("buildings"));
 		}
+        //alert(buildings);
+        //alert(buildings.length);
 		for (i = 0; i < buildings.length; i+=1) {
 			this._buildingIds[buildings[i].buildingId] = i;
             //alert(buildings[i].buildingId)
@@ -196,9 +198,11 @@ function setClustersViews(locations) {
     }
 	
 	$("#clusters-listview").kendoMobileListView({
-		dataSource: kendo.data.DataSource.create({ data: clusters}),
+		dataSource: kendo.data.DataSource.create({ data: locations}),
 		template: $("#clusters-listview-template").html()
 	});
+    
+    
 }
 
 
