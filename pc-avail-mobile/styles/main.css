@@ -1,4 +1,6 @@
-body
+
+
+/*body
 {
     font: Arial, sans-serif;
 }
@@ -24,11 +26,17 @@ body
     color: black;
     padding: 7px;
 }
+*/
 
 #map {
     width:100%;
     height:100%;
     position:absolute;
+}
+
+#clustersview {
+    display:none!important;
+    
 }
 
 /* announcements */
