@@ -131,26 +131,49 @@ function getBuildingLocations(position, handler) {
 }
 
 function clustersShow(e) {
-        $("#clustersNavigate").kendoMobileButtonGroup({
         
-        
-        
-		select: function() {
+	google.maps.event.trigger(map, "resize");
 			
-            if (this.selectedIndex == 0) {
-                
-				$("#clusterswrap").hide();
-				$("#mapwrap").show();
-				google.maps.event.trigger(map, "resize");
-			}
-			else if (this.selectedIndex == 1) {
-				$("#mapwrap").hide();
-				$("#clusterswrap").show();
-			}
+    
+    var iteration = function() {
+		getPosition(function(position) {
+			// Use Google API to get the location data for the current coordinates
+			var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             
-		},
-		index: 0
-	});
+			var myOptions = {
+				zoom: 16,
+				center: latlng,
+				mapTypeControl: false,
+				navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL },
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			mapElem = new google.maps.Map(document.getElementById("map"), myOptions);
+			var marker = new google.maps.Marker({
+				position: latlng,
+				map: mapElem,
+				title: "Your Location",
+                zIndex:google.maps.Marker.MAX_ZINDEX
+			});
+        
+			//if (cachedLocations.length > 0) {
+			//	setClustersViews(cachedLocations);
+			//}
+			//else {
+            	
+				getBuildingLocations(position, function(locations) {
+                    
+					cachedLocations = locations;
+					setClustersViews(locations);
+				});
+			//}
+		});
+	};
+	iteration();
+    
+}
+
+function nearestShow(e) {
+        
     
     var iteration = function() {
 		getPosition(function(position) {

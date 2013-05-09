@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <!-- styles -->
         <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
-        <link href="kendo/styles/kendo.pcavailability.css" rel="stylesheet" />
+        <!--<link href="kendo/styles/kendo.pcavailability.css" rel="stylesheet" />-->
         <link href="styles/main.css" rel="stylesheet" />
         
         <!-- Phone 320x480 High DPI (aka Retina) -->
@@ -95,35 +95,29 @@
 			</div>
         </div>
 
-        <!-- geo -->
-        <!--<div data-role="view" id="tabstrip-geolocation" data-title="Geolocation">
-            <h1>Nearest Cluster</h1>
-            <div id="geoLocationContainer">
-                <div id="myLocation">Unable to get location information. Please check your network connection and try again.</div>
-                <a id="refreshMap" data-role="button" data-click="getLocation" data-icon="refresh">Refresh Location</a>
-                <div id="map_canvas"></div>
-            </div>
-        </div>
-        -->
-        
+       
         <div data-role="view" id="clusters" data-title="Clusters" data-show="clustersShow" data-stretch="true">
             <header data-role="header">
 				<div data-role="navbar">
-						<ul id="clustersNavigate" data-index="0">
-							<li>
-								Map
-							</li>
-							<li>
-								List
-							</li>
-						</ul>
+                    <span data-role="view-title"></span>
 				</div>
 			</header>
 			<div id="mapwrap" data-role="content">
                 <div id="map"></div>
 			</div>
 			
-            <div id="clusterswrap" data-role="content" style="display:none;">
+            
+            
+		</div>
+        
+        <div data-role="view" id="nearest" data-title="Nearest" data-show="nearestShow" data-stretch="true">
+            <header data-role="header">
+				<div data-role="navbar">
+                    <span data-role="view-title"></span>
+				</div>
+			</header>
+			
+            <div id="clusterswrap" data-role="content">
                 <div data-role="scroller">
 				    <ul data-role="listview" id="clusters-listview" data-style="inset" data-type="group" >
 				    </ul>
@@ -146,7 +140,8 @@
                 <div data-role="tabstrip">
                     <a href="#tabstrip-home" data-icon="home">Home</a>
                     <a href="#buildingsView" data-icon="share">By Building</a>
-                    <a href="#clusters" data-icon="globe">By Geolocation</a>
+                    <a href="#clusters" data-icon="globe">Map</a>
+                    <a href="#nearest" data-icon="globe">Nearest</a>
                 </div>
             </div>
         </div>
