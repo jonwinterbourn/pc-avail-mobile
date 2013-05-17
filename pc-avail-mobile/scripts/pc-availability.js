@@ -98,7 +98,7 @@ function getLocations(position, handler) {
 				  $.each(data, function() {
 					  locations.push(
 						  {
-						  address: this.WalkInAddressDisplayStrings[0] + ", " + this.WalkInAddressDisplayStrings[1], 
+						  addadd: this.WalkInAddressDisplayStrings[0] + ", " + this.WalkInAddressDisplayStrings[1], 
 						  latlng: new google.maps.LatLng(this.WalkInAddress.Coordinates.Latitude, this.WalkInAddress.Coordinates.Longitude)
 					  });                
 				  });
@@ -111,7 +111,7 @@ function getLocations(position, handler) {
 
 function getBuildingLocations(position, handler) {
     //$.getJSON("http://www.birmingham.ac.uk/web_services/Maps.svc/54448/buildings/",
-    $.getJSON("http://www.birminghamdev.bham.ac.uk/web_services/Clusters.svc/nearest?lat=" + position.coords.latitude + "&long=" + position.coords.longitude,
+    $.getJSON("http://www.birminghamdev1.bham.ac.uk/web_services/Clusters.svc/nearestpc?lat=" + position.coords.latitude + "&long=" + position.coords.longitude,
 			function(data) {
                 var locations = [];
                 $.each(data, function() {
@@ -120,6 +120,8 @@ function getBuildingLocations(position, handler) {
 		                //address: this.BuildingName, 
                         address: this.FacilityName, 
                         distance: Math.ceil(this.DistanceTo),
+                        roombooked: this.RoomBooked,
+                        pcsavailable: this.NoOfPcsFree,
 			            //latlng: new google.maps.LatLng(this.PolygonCoordinatesAsArrayList[0][0], this.PolygonCoordinatesAsArrayList[0][1])
                         latlng: new google.maps.LatLng(this.CoordinatesArray[0], this.CoordinatesArray[1])
 		            });                
@@ -219,7 +221,9 @@ function onGeolocationError(error) {
 function setClustersViews(locations) {
 	var pinColor = "66CCFF";
 
-     var pinImage = new google.maps.MarkerImage("images/computers.png");
+    var pinImageGood = new google.maps.MarkerImage("images/computers.png");
+    var pinImageWarning = new google.maps.MarkerImage("images/computers_amber.png");
+    var pinImageBad = new google.maps.MarkerImage("images/computers_red.png");
     
 	var marker,
     currentMarkerIndex = 0;
@@ -229,9 +233,21 @@ function setClustersViews(locations) {
 			map: mapElem,
 			animation: google.maps.Animation.DROP,
 			position: locations[index].latlng,
-			title: locations[index].address.replace(/(&nbsp)/g," "),
-			icon: pinImage
+			title: locations[index].address.replace(/(&nbsp)/g," ") + " (" + locations[index].pcsavailable + ")",
+			icon: pinImageWarning
 		});
+        if (locations[index].roombooked == "true") {
+            marker.icon = pinImageBad;
+            marker.title = locations[index].address.replace(/(&nbsp)/g," ") + " (room unavailable)";
+        }
+        else {
+            if(locations[index].pcsavailable > 4)
+                marker.icon = pinImageGood;
+            if(locations[index].pcsavailable <= 2)
+                marker.icon = pinImageBad;
+            if(locations[index].pcsavailable > 2 && locations[index].pcsavailable <= 4 )
+                marker.icon = pinImageWarning;
+        }
         oneMarkerAtTime();
     }
     
