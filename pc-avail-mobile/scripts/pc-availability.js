@@ -115,6 +115,7 @@ function getBuildingLocations(position, handler) {
 			function(data) {
                 var locations = [];
                 $.each(data, function() {
+                    
 	                locations.push(
 		                {    
 		                //address: this.BuildingName, 
@@ -123,7 +124,7 @@ function getBuildingLocations(position, handler) {
                         roombooked: this.RoomBooked,
                         pcsavailable: this.NoOfPcsFree,
 			            //latlng: new google.maps.LatLng(this.PolygonCoordinatesAsArrayList[0][0], this.PolygonCoordinatesAsArrayList[0][1])
-                        latlng: new google.maps.LatLng(this.CoordinatesArray[0], this.CoordinatesArray[1])
+                        latlng: new google.maps.LatLng(Number(this.CoordinatesArray[0]), Number(this.CoordinatesArray[1]))
 		            });                
 	            });
 	            handler(locations);   
