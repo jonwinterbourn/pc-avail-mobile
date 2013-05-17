@@ -15,10 +15,7 @@ function onDeviceReady() {
     getInitialBuildingsData();
     buildingsData.init();
 	buildingsData.buildings.bind("change", writeIntoLocalStorage);
-    
-    
-    
-    
+     
 }
 
 
@@ -90,27 +87,7 @@ function getPosition(handler) {
 	navigator.geolocation.getCurrentPosition(handler, onGeolocationError, { enableHighAccuracy: true });
 }
 
-/*
-function getLocations(position, handler) {
-	$.getJSON("http://www.starbucks.com/api/location.ashx?&features=&lat=" + position.coords.latitude + "&long=" + position.coords.longitude + "&limit=10",
-			  function(data) {
-				  var locations = [];
-				  $.each(data, function() {
-					  locations.push(
-						  {
-						  addadd: this.WalkInAddressDisplayStrings[0] + ", " + this.WalkInAddressDisplayStrings[1], 
-						  latlng: new google.maps.LatLng(this.WalkInAddress.Coordinates.Latitude, this.WalkInAddress.Coordinates.Longitude)
-					  });                
-				  });
-				  handler(locations);
-			  }).error(function(error) {
-				  alert(error.message);
-			  });
-}
-*/
-
 function getBuildingLocations(position, handler) {
-    //$.getJSON("http://www.birmingham.ac.uk/web_services/Maps.svc/54448/buildings/",
     $.getJSON("http://www.birminghamdev1.bham.ac.uk/web_services/Clusters.svc/nearestpc?lat=" + position.coords.latitude + "&long=" + position.coords.longitude,
 			function(data) {
                 var locations = [];
@@ -118,12 +95,10 @@ function getBuildingLocations(position, handler) {
                     
 	                locations.push(
 		                {    
-		                //address: this.BuildingName, 
                         address: this.FacilityName, 
                         distance: Math.ceil(this.DistanceTo),
                         roombooked: this.RoomBooked,
                         pcsavailable: this.NoOfPcsFree,
-			            //latlng: new google.maps.LatLng(this.PolygonCoordinatesAsArrayList[0][0], this.PolygonCoordinatesAsArrayList[0][1])
                         latlng: new google.maps.LatLng(Number(this.CoordinatesArray[0]), Number(this.CoordinatesArray[1]))
 		            });                
 	            });
@@ -137,7 +112,6 @@ function clustersShow(e) {
         
 	google.maps.event.trigger(map, "resize");
 			
-    
     var iteration = function() {
 		getPosition(function(position) {
 			// Use Google API to get the location data for the current coordinates
@@ -158,17 +132,12 @@ function clustersShow(e) {
                 zIndex:google.maps.Marker.MAX_ZINDEX
 			});
         
-			//if (cachedLocations.length > 0) {
-			//	setClustersViews(cachedLocations);
-			//}
-			//else {
-            	
-				getBuildingLocations(position, function(locations) {
+			getBuildingLocations(position, function(locations) {
                     
-					cachedLocations = locations;
-					setClustersViews(locations);
-				});
-			//}
+				cachedLocations = locations;
+				setClustersViews(locations);
+			});
+        			
 		});
 	};
 	iteration();
@@ -176,39 +145,18 @@ function clustersShow(e) {
 }
 
 function nearestShow(e) {
-        
     
     var iteration = function() {
 		getPosition(function(position) {
 			// Use Google API to get the location data for the current coordinates
-			var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			//var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             
-			var myOptions = {
-				zoom: 16,
-				center: latlng,
-				mapTypeControl: false,
-				navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL },
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-			mapElem = new google.maps.Map(document.getElementById("map"), myOptions);
-			var marker = new google.maps.Marker({
-				position: latlng,
-				map: mapElem,
-				title: "Your Location",
-                zIndex:google.maps.Marker.MAX_ZINDEX
-			});
-        
-			//if (cachedLocations.length > 0) {
-			//	setClustersViews(cachedLocations);
-			//}
-			//else {
-            	
-				getBuildingLocations(position, function(locations) {
+			getBuildingLocations(position, function(locations) {
                     
-					cachedLocations = locations;
-					setClustersViews(locations);
-				});
-			//}
+				cachedLocations = locations;
+				setClustersViews(locations);
+			});
+			
 		});
 	};
 	iteration();
@@ -249,6 +197,20 @@ function setClustersViews(locations) {
             if(locations[index].pcsavailable > 2 && locations[index].pcsavailable <= 4 )
                 marker.icon = pinImageWarning;
         }
+        addInfoWindow(mapElem, marker, marker.title)
+        
+        
+        /*google.maps.event.addListener(marker, "click", function()
+        {
+            var infoWindow = new google.maps.InfoWindow({
+				content: marker.title,
+                maxWidth:"10",
+                maxHeight:"5"
+		    });
+            infoWindow.open(mapElem, marker);
+            
+        });*/
+        
         oneMarkerAtTime();
         
     }
@@ -263,19 +225,28 @@ function setClustersViews(locations) {
                 createMarker(currentMarkerIndex+=1);
             }
         });
+        
     }
+    
+    
 	
 	$("#clusters-listview").kendoMobileListView({
 		dataSource: kendo.data.DataSource.create({ data: locations}),
 		template: $("#clusters-listview-template").html()
 	});
     
-    google.maps.event.addListener(marker, 'mousedown', function() {
-        alert("tapped");
-
-    }
-    
-    
+   
 }
+
+function addInfoWindow(map, marker, message) {
+
+            var infoWindow = new google.maps.InfoWindow({
+                content: message
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.open(map, marker);
+            });
+        }
 
 
