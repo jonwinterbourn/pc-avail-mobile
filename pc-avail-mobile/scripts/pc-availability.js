@@ -244,6 +244,7 @@ function setClustersViews(locations) {
         else {
             if(locations[index].pcsavailable > 4)
                 marker.icon = pinImageGood;
+                marker.icon.scaledSize(42, 42);
             if(locations[index].pcsavailable <= 2)
                 marker.icon = pinImageBad;
             if(locations[index].pcsavailable > 2 && locations[index].pcsavailable <= 4 )
