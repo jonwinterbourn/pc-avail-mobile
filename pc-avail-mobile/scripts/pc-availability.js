@@ -197,7 +197,8 @@ function setClustersViews(locations) {
             if(locations[index].pcsavailable > 2 && locations[index].pcsavailable <= 4 )
                 marker.icon = pinImageWarning;
         }
-        addInfoWindow(mapElem, marker, marker.title)
+        var descripDiv = "<div class='markerInfo'>" + marker.title + "</div>";
+        addInfoWindow(mapElem, marker, descripDiv)
         
         
         /*google.maps.event.addListener(marker, "click", function()
