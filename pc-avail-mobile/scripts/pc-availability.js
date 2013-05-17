@@ -270,6 +270,11 @@ function setClustersViews(locations) {
 		template: $("#clusters-listview-template").html()
 	});
     
+    google.maps.event.addListener(marker, 'mousedown', function() {
+        alert("tapped");
+
+    }
+    
     
 }
 
