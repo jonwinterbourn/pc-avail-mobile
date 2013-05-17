@@ -249,6 +249,7 @@ function setClustersViews(locations) {
                 marker.icon = pinImageWarning;
         }
         oneMarkerAtTime();
+        
     }
     
 	createMarker(0);
