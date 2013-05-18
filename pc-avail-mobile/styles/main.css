@@ -2,35 +2,18 @@
 div.markerInfo {
     background-color: #fff;
     color: #00688B;
+    padding: 5px;
 }
 
-/*body
-{
-    font: Arial, sans-serif;
+div.markerInfo span{
+    clear:both;
+    display:block;
 }
 
-.buttonArea,
-.footerText,
-#geoLocationContainer,
-#helloWorldInput,
-#helloWorldText
-{
-    text-align: center;
+div.clusterInformationContainer span{
+    clear:both;
+    display:block;
 }
-
-#txtName
-{
-    border: 1px solid #AAA;
-    border-radius: 15px;
-    position:static;
-    margin-left: 1em;
-    margin-top: 0.3em;
-    margin-bottom: 0.3em;
-    background:white;
-    color: black;
-    padding: 7px;
-}
-*/
 
 #map {
     width:100%;

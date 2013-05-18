@@ -197,23 +197,14 @@ function setClustersViews(locations) {
             if(locations[index].pcsavailable > 2 && locations[index].pcsavailable <= 4 )
                 marker.icon = pinImageWarning;
         }
-        var descripDiv = "<div class='markerInfo'>" + marker.title + "</div>";
+        var descripDiv = "<div class='markerInfo'><span class='markerTitle'>" + locations[index].address.replace(/(&nbsp)/g," ") + "</span>";
+        descripDiv = descripDiv + "<span class='markerPcNos'>PCs available: " + locations[index].pcsavailable + "</span>";
+        descripDiv = descripDiv + "<span class='markerDistance'>Distance: " + locations[index].distance + "m. </span>";
+        descripDiv = descripDiv + "</div>";
+        
         addInfoWindow(mapElem, marker, descripDiv)
         
-        
-        /*google.maps.event.addListener(marker, "click", function()
-        {
-            var infoWindow = new google.maps.InfoWindow({
-				content: marker.title,
-                maxWidth:"10",
-                maxHeight:"5"
-		    });
-            infoWindow.open(mapElem, marker);
-            
-        });*/
-        
         oneMarkerAtTime();
-        
     }
     
 	createMarker(0);
