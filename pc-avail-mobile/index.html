@@ -100,10 +100,14 @@
         <div data-role="view" id="clusters" data-title="Clusters" data-show="clustersShow" data-stretch="true">
             <header data-role="header">
 				<div data-role="navbar">
+                    <a data-align="left" data-role="button" href="#nearest">List View</a>
                     <span data-role="view-title"></span>
+                    <a data-align="right" data-icon="refresh" data-role="button" onClick="clustersShow();"></a>
 				</div>
 			</header>
 			<div id="mapwrap" data-role="content">
+                <!--<div id="myLocation">Unable to get location information. Please check your network connection and try again.</div>-->
+                <!--<button data-icon="refresh" onClick="clustersShow();">Refresh Location</button>-->
                 <div id="map"></div>
 			</div>
 			
@@ -114,11 +118,14 @@
         <div data-role="view" id="nearest" data-title="Nearest" data-show="nearestShow" data-stretch="true">
             <header data-role="header">
 				<div data-role="navbar">
+                    <a id="back-button" class="nav-button" data-align="left" data-role="backbutton">Back</a>
                     <span data-role="view-title"></span>
+                    <a data-align="right" data-icon="refresh" data-role="button" onClick="nearestShow();"></a>
 				</div>
 			</header>
 			
             <div id="clusterswrap" data-role="content">
+                <!--<button data-icon="refresh" onClick="nearestShow();">Refresh Location</button>-->
                 <div data-role="scroller">
 				    <ul data-role="listview" id="clusters-listview" data-style="inset" data-type="group" >
 				    </ul>
@@ -141,8 +148,8 @@
                 <div data-role="tabstrip">
                     <a href="#tabstrip-home" data-icon="home">Home</a>
                     <a href="#buildingsView" data-icon="share">By Building</a>
-                    <a href="#clusters" data-icon="globe">Map</a>
-                    <a href="#nearest" data-icon="globe">Nearest</a>
+                    <a href="#clusters" data-icon="globe">Nearest Clusters</a>
+                    <!--<a href="#nearest" data-icon="globe">Nearest</a>-->
                 </div>
             </div>
         </div>

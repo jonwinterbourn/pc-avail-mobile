@@ -83,6 +83,19 @@ function listViewBuildingsInit() {
 //=======================Geolocation Operations=======================//
 // onGeolocationSuccess Geolocation
 
+function getLocation(){
+    navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError);
+
+}
+
+function onGeolocationSuccess(position) {
+    // Use Google API to get the location data for the current coordinates
+    
+    clustersShow();
+    
+   
+}
+
 function getPosition(handler) {
 	navigator.geolocation.getCurrentPosition(handler, onGeolocationError, { enableHighAccuracy: true });
 }
