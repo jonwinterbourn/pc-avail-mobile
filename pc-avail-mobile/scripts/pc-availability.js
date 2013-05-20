@@ -12,9 +12,15 @@ function onDeviceReady() {
     //getLocation();
     navigator.splashscreen.hide();
     
+    /*
     getInitialBuildingsData();
     buildingsData.init();
 	buildingsData.buildings.bind("change", writeIntoLocalStorage);
+    */
+    
+    getInitialCampusesData();
+    campusesData.init();
+	campusesData.campuses.bind("change", writeIntoLocalStorage);
      
 }
 
@@ -33,8 +39,9 @@ function announcementListViewTemplatesInit() {
 	});
 }
 
-//======================= Buildings/Clusters Operations ===============================//
+//======================= Campus/Buildings ===============================//
 
+/*
 function getInitialBuildingsData(){
     if(window.localStorage.getItem("buildings")===null)
     {
@@ -43,14 +50,26 @@ function getInitialBuildingsData(){
         localStorage.setItem("buildings",initialBuildings);
     }
 }
+*/
 
 var buildingsData = kendo.observable({
-	init:function() {
+	init:function(campusId) {
 		var i;
+        
 		this._buildingIds = {};
+        var campuses=[];
         var buildings=[];
-		if (window.localStorage.getItem("buildings") !== null) {
-            buildings = JSON.parse(window.localStorage.getItem("buildings"));
+		if (window.localStorage.getItem("campuses") !== null) {
+            campuses = JSON.parse(window.localStorage.getItem("campuses"))
+            for (i = 0; i < campuses.length; i+=1) {
+                if (campuses[i].campusId = campusId) {
+                    buildings = campuses[i].buildings;
+                }
+                
+            }
+            //var thiscampus = campuses.campusId(campusId);
+            alert(campuses.length)
+            //buildings = thiscampus.buildings;
 		}
         //alert(buildings);
         //alert(buildings.length);
@@ -71,14 +90,90 @@ var buildingsData = kendo.observable({
 	buildings : []
 });
 
+function getInitialCampusesData(){
+    if(window.localStorage.getItem("campuses")===null)
+    {
+        var campusData = new initialCampusData(),
+        initialCampuses = campusData.getInitialCampusesData();
+        localStorage.setItem("campuses",initialCampuses);
+    }
+}
+
+var campusesData = kendo.observable({
+	init:function() {
+		var i;
+		this._campusIds = {};
+        var campuses=[];
+		if (window.localStorage.getItem("campuses") !== null) {
+            campuses = JSON.parse(window.localStorage.getItem("campuses"));
+		}
+		for (i = 0; i < campuses.length; i+=1) {
+			this._campusIds[campuses[i].campusId] = i;
+		}
+		campusesData.set("campuses", campuses);
+	},
+	campusIds: function(value) {
+		if (value) {
+			this._campusIds = value;
+		}
+		else {
+			return this._campusIds;
+		}
+	},
+	campuses : []
+});
+
 function writeIntoLocalStorage(e) {
 	var dataToWrite = JSON.stringify(buildingsData.buildings);
 	window.localStorage.setItem("buildings", dataToWrite);
+    var dataToWriteC = JSON.stringify(campusesData.campuses);
+	window.localStorage.setItem("campuses", dataToWriteCdataToWriteC);
 }
 
 function listViewBuildingsInit() {
    
 }
+
+function listViewCampusesInit() {
+   
+}
+
+
+function listViewBuildingsShow(arguments) {
+    var campusId = arguments.view.params.campusId;
+    
+    buildingsData.init.call(buildingsData, campusId);
+	
+    /*
+    var $cardFront = $("#cardFront"),
+	    $cardBack = $("#cardBack");
+	
+    appendCardFadeEffect($cardFront, $cardBack);
+    */
+}
+
+/*
+var buildingsData = new kendo.observable({
+    setValues: function(campusId) {
+        var that = this,
+            cardPosition = cardsData.cardNumbers()[cardId],
+            currentCard = cardsData.cards[cardPosition];
+        
+        that.set("barcodeUrl", generateBarcodeUrl(cardId));
+		that.set("cardId","#" + cardId);
+		that.set("cardAmount", kendo.toString(currentCard.amount, "c"));
+		that.set("barcodeURL", currentCard.bonusPoints);
+		that.set("currentDate", kendo.toString(new Date(), "yyyy/MM/dd hh:mm tt"));
+    },
+    
+    barcodeUrl : "",
+	cardId : "",
+	cardAmount : "",
+	bonusPoints : "",
+	currentDate : ""
+})
+*/
+
 
 //=======================Geolocation Operations=======================//
 // onGeolocationSuccess Geolocation
