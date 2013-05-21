@@ -62,20 +62,33 @@
         <script type="text/x-kendo-template" id="campusesListTemplate">
              <a class="listCampus clear" data-campusId="${campusId}" data-role="listview-link" href='buildingsListView?campusId=${campusId}'>
                 <div class="campusInformationContainer">
-                    <span>Campus: </span><span class="campusNameText">${campusName}</span>
+                    <!--<span>Campus: </span>-->
+            <span class="campusNameText">${campusName}</span>
                 </div>
                 <div class="clear"></div>
              </a>
         </script>
         
          <script type="text/x-kendo-template" id="buildingsListTemplate">
-                <div class="buildingInformationContainer">
-                    <span>Building Name: </span>
+             <a class="listBuilding clear" data-campusId="${buildingId}" data-role="listview-link" href='clustersListView?buildingId=${buildingId}'>
+                 <div class="buildingInformationContainer">
+                    <!--<span>Building Name: </span>-->
                     <span class="buildingNameText">${buildingName}</span>
-                    <div class="locationText">${location}</div>
+                    <!--<div class="locationText">${location}</div>-->
                 </div>
                 <div class="clear"></div>
-           </script>
+             </a>
+         </script>
+        
+        <script type="text/x-kendo-template" id="clustersListTemplate">
+                <div class="clusterInformationContainer">
+                    
+                    <span class="clusterNameText">${FacilityName}</span>
+                    
+                    <div class="pcs_available">${NoOfPcsFree} PCs available.</div>
+                </div>
+                <div class="clear"></div>
+         </script>
         
         <script type="text/x-kendo-template" id="clusters-listview-template">
 	        <div class="clusterInformationContainer">
@@ -119,9 +132,22 @@
                 </ul>
 			</div>
         </div>
-        
-        
-        
+        <div data-role="view" id="clustersListView" data-title="Clusters" data-show="listViewClustersShow" data-model="clustersData">
+            <header data-role="header">
+				<div data-role="navbar">
+                    <a id="back-button" class="nav-button" data-align="left" data-role="backbutton">Back</a>
+                    <span data-role="view-title">: </span>
+				</div>
+			</header>
+            <div id="clustersViewContent" data-role="content">
+                <ul class="clusterListWrapper" data-role="listview" data-style="inset" data-type="group">
+                    <li>
+                        <ul id="clustersList" data-role="listview" data-bind="source: clusters" data-template="clustersListTemplate">
+                        </ul>
+                    </li>
+                </ul>
+			</div>
+        </div>
        
         <div data-role="view" id="clusters" data-title="Clusters" data-show="clustersShow" data-stretch="true">
             <header data-role="header">
@@ -133,7 +159,6 @@
 			</header>
 			<div id="mapwrap" data-role="content">
                 <!--<div id="myLocation">Unable to get location information. Please check your network connection and try again.</div>-->
-                <!--<button data-icon="refresh" onClick="clustersShow();">Refresh Location</button>-->
                 <div id="map"></div>
 			</div>
 			

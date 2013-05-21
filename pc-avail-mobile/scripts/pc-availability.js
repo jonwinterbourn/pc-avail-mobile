@@ -12,12 +12,6 @@ function onDeviceReady() {
     //getLocation();
     navigator.splashscreen.hide();
     
-    /*
-    getInitialBuildingsData();
-    buildingsData.init();
-	buildingsData.buildings.bind("change", writeIntoLocalStorage);
-    */
-    
     getInitialCampusesData();
     campusesData.init();
 	campusesData.campuses.bind("change", writeIntoLocalStorage);
@@ -41,50 +35,23 @@ function announcementListViewTemplatesInit() {
 
 //======================= Campus/Buildings ===============================//
 
-/*
-function getInitialBuildingsData(){
-    if(window.localStorage.getItem("buildings")===null)
-    {
-        var buildingData = new initialBuildingData(),
-        initialBuildings = buildingData.getInitialBuildingsData();
-        localStorage.setItem("buildings",initialBuildings);
-    }
-}
-*/
-
 var buildingsData = kendo.observable({
 	init:function(campusId) {
 		var i;
-        //alert(campusId);
 		this._buildingIds = {};
         
         var campusData = new initialCampusData();
         var campuses=  JSON.parse(campusData.getInitialCampusesData());
-        //alert( JSON.stringify(campuses) );
         var buildings=[];
-		//if (window.localStorage.getItem("campuses") != null) {
-            //campuses = initialCampusData().getInitialCampusesData();
             
         for (i = 0; i < campuses.length; i+=1) {
-                //alert(campuses[i].campusName);
              if (campuses[i].campusId == campusId) {
                         
                  buildings = campuses[i].buildings;
 
              }
-                    
-                    //alert("test");
                 
             }
-            //alert(buildings.length);
-            
-		//}
-        //alert(buildings);
-        //alert(buildings.length);
-		//for (i = 0; i < buildings.length; i+=1) {
-		//	this._buildingIds[buildings[i].buildingId] = i;
-        //    //alert(buildings[i].buildingId)
-		//}
 		buildingsData.set("buildings", buildings);
 	},
 	
@@ -97,6 +64,36 @@ var buildingsData = kendo.observable({
 		}
 	},
 	buildings : []
+});
+
+var clustersData = kendo.observable({
+	init:function(buildingId) {
+		var i;
+		this._clusterIds = {};
+
+        var buildings=buildingsData.buildings;
+        var clusters = [];
+            
+        for (i = 0; i < buildings.length; i+=1) {
+             if (buildings[i].buildingId == buildingId) {
+                        
+                 clusters = buildings[i].clusters;
+
+             }
+                
+            }
+		clustersData.set("clusters", clusters);
+	},
+	
+    clusterIds: function(value) {
+		if (value) {
+			this._clusterIds = value;
+		}
+		else {
+			return this._clusterIds;
+		}
+	},
+	clusters : []
 });
 
 function getInitialCampusesData(){
@@ -137,7 +134,7 @@ function writeIntoLocalStorage(e) {
 	var dataToWrite = JSON.stringify(buildingsData.buildings);
 	window.localStorage.setItem("buildings", dataToWrite);
     var dataToWriteC = JSON.stringify(campusesData.campuses);
-	window.localStorage.setItem("campuses", dataToWriteCdataToWriteC);
+	window.localStorage.setItem("campuses", dataToWriteC);
 }
 
 function listViewBuildingsInit() {
@@ -154,35 +151,14 @@ function listViewBuildingsShow(arguments) {
     
     buildingsData.init.call(buildingsData, campusId);
 	
-    /*
-    var $cardFront = $("#cardFront"),
-	    $cardBack = $("#cardBack");
-	
-    appendCardFadeEffect($cardFront, $cardBack);
-    */
 }
 
-/*
-var buildingsData = new kendo.observable({
-    setValues: function(campusId) {
-        var that = this,
-            cardPosition = cardsData.cardNumbers()[cardId],
-            currentCard = cardsData.cards[cardPosition];
-        
-        that.set("barcodeUrl", generateBarcodeUrl(cardId));
-		that.set("cardId","#" + cardId);
-		that.set("cardAmount", kendo.toString(currentCard.amount, "c"));
-		that.set("barcodeURL", currentCard.bonusPoints);
-		that.set("currentDate", kendo.toString(new Date(), "yyyy/MM/dd hh:mm tt"));
-    },
+function listViewClustersShow(arguments) {
+    var buildingId = arguments.view.params.buildingId;
     
-    barcodeUrl : "",
-	cardId : "",
-	cardAmount : "",
-	bonusPoints : "",
-	currentDate : ""
-})
-*/
+    clustersData.init.call(clustersData, buildingId);
+
+}
 
 
 //=======================Geolocation Operations=======================//
