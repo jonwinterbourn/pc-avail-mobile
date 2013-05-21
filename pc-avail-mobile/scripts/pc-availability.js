@@ -55,31 +55,40 @@ function getInitialBuildingsData(){
 var buildingsData = kendo.observable({
 	init:function(campusId) {
 		var i;
-        
+        //alert(campusId);
 		this._buildingIds = {};
-        var campuses=[];
+        
+        var campusData = new initialCampusData();
+        var campuses=  JSON.parse(campusData.getInitialCampusesData());
+        //alert( JSON.stringify(campuses) );
         var buildings=[];
-		if (window.localStorage.getItem("campuses") !== null) {
-            campuses = JSON.parse(window.localStorage.getItem("campuses"))
-            for (i = 0; i < campuses.length; i+=1) {
-                if (campuses[i].campusId = campusId) {
-                    buildings = campuses[i].buildings;
-                }
+		//if (window.localStorage.getItem("campuses") != null) {
+            //campuses = initialCampusData().getInitialCampusesData();
+            
+        for (i = 0; i < campuses.length; i+=1) {
+                //alert(campuses[i].campusName);
+             if (campuses[i].campusId == campusId) {
+                        
+                 buildings = campuses[i].buildings;
+
+             }
+                    
+                    //alert("test");
                 
             }
-            //var thiscampus = campuses.campusId(campusId);
-            alert(campuses.length)
-            //buildings = thiscampus.buildings;
-		}
+            //alert(buildings.length);
+            
+		//}
         //alert(buildings);
         //alert(buildings.length);
-		for (i = 0; i < buildings.length; i+=1) {
-			this._buildingIds[buildings[i].buildingId] = i;
-            //alert(buildings[i].buildingId)
-		}
+		//for (i = 0; i < buildings.length; i+=1) {
+		//	this._buildingIds[buildings[i].buildingId] = i;
+        //    //alert(buildings[i].buildingId)
+		//}
 		buildingsData.set("buildings", buildings);
 	},
-	buildingIds: function(value) {
+	
+    buildingIds: function(value) {
 		if (value) {
 			this._buildingIds = value;
 		}
@@ -107,6 +116,7 @@ var campusesData = kendo.observable({
 		if (window.localStorage.getItem("campuses") !== null) {
             campuses = JSON.parse(window.localStorage.getItem("campuses"));
 		}
+        //campuses = JSON.parse(initialCampusData());
 		for (i = 0; i < campuses.length; i+=1) {
 			this._campusIds[campuses[i].campusId] = i;
 		}
