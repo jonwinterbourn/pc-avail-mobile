@@ -40,23 +40,15 @@
     </head>
     <body>
         
-        <!-- HOME page -->
-        <div data-role="view" id="tabstrip-home" data-title="Home" data-init="announcementListViewTemplatesInit">
-            <div data-role="content">
-                <div id="announcements">
-                    <ul data-role="listview" id="announcements-listview" 
-                        data-style="inset" data-type="group">
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
         <!-- Templates here -->
         
         <script type="text/x-kendo-template" id="announcement-listview-template">
-            <!--<img class="item-photo" src="${url}" />-->
-            <h3 class="item-title">${title}</h3>
-            <p class="item-info">${description}</p>
+            
+            <!--<li class="news-item">-->
+                <span data-icon="toprated" class="item-title">${title}</span>
+                <span class="item-info">${description}</span>
+            <!--</li>-->
+            
         </script>
         
         <script type="text/x-kendo-template" id="campusesListTemplate">
@@ -99,6 +91,25 @@
 		</script>
         
         <!-- more to come -->
+        
+        <!-- HOME page -->
+        <div data-role="view" id="newsView" data-title="Home" data-init="announcementListViewTemplatesInit">
+            <header data-role="header">
+				<div data-role="navbar">
+                    <span data-role="view-title"></span>
+				</div>
+			</header>
+            <div id="newsViewContent" data-role="content">
+                <ul class="newsListWrapper" data-role="listview" data-style="inset" data-type="group">
+                    <li>
+                    
+                        <ul data-role="listview" id="announcements-listview" data-style="inset" data-type="flat">
+                        </ul>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
 
         <!-- Campus/Buildings List Page -->
         <div data-role="view" id="campusesView" data-title="Campuses" data-init="listViewCampusesInit" data-model="campusesData">
@@ -198,7 +209,7 @@
 
             <div data-role="footer">
                 <div data-role="tabstrip">
-                    <a href="#tabstrip-home" data-icon="home">Home</a>
+                    <a href="#newsView" data-icon="home">Home</a>
                     <a href="#campusesView" data-icon="share">By Building</a>
                     <a href="#clusters" data-icon="globe">Nearest Clusters</a>
                     <!--<a href="#nearest" data-icon="globe">Nearest</a>-->

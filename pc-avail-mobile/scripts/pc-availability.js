@@ -28,21 +28,22 @@ function onDeviceReady() {
 
 //======================= News etc ==========================================//
 
-var newsData = [
+var newsTestData = [
 	{ title: "Main Library 3rd floor closed", description: "3rd floor of Main Library closed due to an infestation of pumpkin-flavoured cupcakes.", url: "images/holiday.png" }
     
-];             
+];
+
 
 var newsDataSource = new kendo.data.DataSource({
                         transport: {
                             // specify the XML file to read. The same as read: { url: "books.xml" }
-                            read: "http://www.birmingham.ac.uk/news/index.aspx?SyndicationType=1"
+                            read: "http://www.bhamlive1.bham.ac.uk/webteam/pcavailability/news/index.aspx?Listing_SyndicationType=1"
                         },
                         schema: {
                             // specify the the schema is XML
                             type: "xml",
                             // the XML element which represents a single data record
-                            data: "/channel/item",
+                            data: "/rss/channel/item",
                             // define the model - the object which will represent a single data record
                             model: {
                                 // configure the fields of the object
@@ -54,12 +55,13 @@ var newsDataSource = new kendo.data.DataSource({
                         }
 
                     });
-                    //newsDataSource.read();
+
+
 
            
 function announcementListViewTemplatesInit() {
 	$("#announcements-listview").kendoMobileListView({
-		//dataSource: kendo.data.DataSource.create({ data: newsData }),
+		//dataSource: kendo.data.DataSource.create({ data: newsTestData }),
 		dataSource: newsDataSource,
         template: $("#announcement-listview-template").html()
 	});
