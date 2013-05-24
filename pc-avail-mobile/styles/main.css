@@ -1,4 +1,7 @@
 
+div.offlineMessage {
+    display: none;
+}
 div.markerInfo {
     background-color: #fff;
     color: #00688B;
