@@ -54,7 +54,7 @@
         <!-- Templates here -->
         
         <script type="text/x-kendo-template" id="announcement-listview-template">
-            <img class="item-photo" src="${url}" />
+            <!--<img class="item-photo" src="${url}" />-->
             <h3 class="item-title">${title}</h3>
             <p class="item-info">${description}</p>
         </script>
@@ -140,6 +140,7 @@
 				</div>
 			</header>
             <div id="clustersViewContent" data-role="content">
+                <div class="offlineMessage">Unable to get location information. Please check your network connection and try again.</div>
                 <ul class="clusterListWrapper" data-role="listview" data-style="inset" data-type="group">
                     <li>
                         <ul id="clustersList" data-role="listview" data-bind="source: clusters" data-template="clustersListTemplate">
@@ -158,7 +159,7 @@
 				</div>
 			</header>
 			<div id="mapwrap" data-role="content">
-                <!--<div id="myLocation">Unable to get location information. Please check your network connection and try again.</div>-->
+                <div class="offlineMessage">Unable to get location information. Please check your network connection and try again.</div>
                 <div id="map"></div>
 			</div>
 			
