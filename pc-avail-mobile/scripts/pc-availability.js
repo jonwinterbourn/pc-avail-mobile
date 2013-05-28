@@ -1,6 +1,8 @@
 // JavaScript Document
 
 // Wait for cordova to load
+
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 var mapElem,
@@ -11,6 +13,7 @@ function onDeviceReady() {
     
     //getLocation();
     navigator.splashscreen.hide();
+    
     
     getInitialCampusesData();
     campusesData.init();
