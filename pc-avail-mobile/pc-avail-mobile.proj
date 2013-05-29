@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ProjectGuid>f85529da-eac1-48ae-bd39-261eec02f8ea</ProjectGuid>
     <ProjectTypeGuids>{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}</ProjectTypeGuids>
-    <AppIdentifier>com.telerik.pc_avail_mobile</AppIdentifier>
+    <AppIdentifier>uk.ac.birmingham.m.pc_avail_mobile</AppIdentifier>
     <ProjectName>pc-avail-mobile</ProjectName>
     <IsRunnable>true</IsRunnable>
     <TemplateAppName>Cordova240</TemplateAppName>
