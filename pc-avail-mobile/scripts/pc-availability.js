@@ -1,8 +1,6 @@
 // JavaScript Document
 
 // Wait for cordova to load
-
-
 document.addEventListener("deviceready", onDeviceReady, false);
 
 var mapElem,
@@ -40,7 +38,7 @@ var newsTestData = [
 var newsDataSource = new kendo.data.DataSource({
                         transport: {
                             // specify the XML file to read. The same as read: { url: "books.xml" }
-                            read: "http://www.bhamlive1.bham.ac.uk/webteam/pcavailability/news/index.aspx?Listing_SyndicationType=1"
+                            read: "http://www.bhamlive3.bham.ac.uk/webteam/pcavailability/news/index.aspx?Listing_SyndicationType=1"
                         },
                         schema: {
                             // specify the the schema is XML
@@ -59,12 +57,8 @@ var newsDataSource = new kendo.data.DataSource({
 
                     });
 
-
-
-           
 function announcementListViewTemplatesInit() {
 	$("#announcements-listview").kendoMobileListView({
-		//dataSource: kendo.data.DataSource.create({ data: newsTestData }),
 		dataSource: newsDataSource,
         template: $("#announcement-listview-template").html()
 	});
@@ -74,49 +68,26 @@ function announcementListViewTemplatesInit() {
 
 var buildingsData = kendo.observable({
 	init:function(campusId) {
-		var i;
+		
 		this._buildingIds = {};
         
-        //var campusData = new initialCampusData();
-        //var campuses=  JSON.parse(campusData.getInitialCampusesData());
         var buildings=[];
       
         getBuildingsForMaps(campusId, function(buildings) {
         
             buildingsData.set("buildings", buildings);
         });
-        
-        /*    
-        for (i = 0; i < campuses.length; i+=1) {
-             if (campuses[i].campusId == campusId) {
-                        
-                 buildings = campuses[i].buildings;
 
-             }
-                
-            }
-		buildingsData.set("buildings", buildings);
-        */
 	},
-	/*
-    buildingIds: function(value) {
-		if (value) {
-			this._buildingIds = value;
-		}
-		else {
-			return this._buildingIds;
-		}
-	},
-    */
+
 	buildings : []
 });
 
 var clustersData = kendo.observable({
 	init:function(buildingId) {
-		var i;
+		
 		this._clusterIds = {};
 
-        //var buildings=buildingsData.buildings;
         var clusters = [];
         
         getClustersForBuildings(buildingId, function(clusters) {
@@ -124,54 +95,23 @@ var clustersData = kendo.observable({
             clustersData.set("clusters", clusters);
         });
         
-        /*
-        for (i = 0; i < buildings.length; i+=1) {
-             if (buildings[i].buildingId == buildingId) {
-                        
-                 
-                 
-                 clusters = buildings[i].clusters;
-             }
-                
-            }
-        
-        clustersData.set("clusters", clusters);
-        */
 	},
-	/*
-    clusterIds: function(value) {
-		if (value) {
-			this._clusterIds = value;
-		}
-		else {
-			return this._clusterIds;
-		}
-	},
-    */
+
 	clusters : []
 });
 
 function getInitialCampusesData(){
-    //if(window.localStorage.getItem("campuses")===null)
-    //{
-        //var initialCampuses;
-        $.getJSON("http://www.birminghamdev1.bham.ac.uk/web_services/Clusters.svc/maps", function(data) {
+
+        $.getJSON("http://www.birmingham.ac.uk/web_services/Clusters.svc/maps", function(data) {
             
-            //initialCampuses = data;
             localStorage.setItem("campuses",JSON.stringify(data));
-            //alert(JSON.stringify(data));
         });
-         //= campusData;
-        //var campusData = new initialCampusData(),
-        //initialCampuses = campusData.getInitialCampusesData();
-        //localStorage.setItem("campuses",JSON.stringify(initialCampuses));
-        //alert(window.localStorage.getItem("campuses"));
-    //}
+
 }
 
 var campusesData = kendo.observable({
 	init:function() {
-		var i;
+		
 		this._campusIds = {};
         var campuses=[];
 		//if (window.localStorage.getItem("campuses") !== null) {
@@ -181,35 +121,11 @@ var campusesData = kendo.observable({
         
         getMaps(function(campuses) {
                     
-				//cachedLocations = locations;
-				//setClustersViews(locations);
-                //alert(JSON.stringify(campuses));
-                //alert("count:" + campuses.length);
-            
-                //for (i = 0; i < campuses.length; i+=1) {
-			    
-                //    this._campusIds[campuses[i].campusId] = i;
-                
-		        //}
-                campusesData.set("campuses", campuses);
+				campusesData.set("campuses", campuses);
 			});
         
-        
-		//for (i = 0; i < campuses.length; i+=1) {
-		//	//this._campusIds[campuses[i].campusId] = i;
-  //          this._campusIds[campuses[i].contentId] = i;
-  //          //alert(campuses[i].contentId);
-	//	}
-        //campusesData.set("campuses", campuses);
 	},
-	//campusIds: function(value) {
-	//	if (value) {
-	//		this._campusIds = value;
-	//	}
-	//	else {
-	//		return this._campusIds;
-	//	}
-	//},
+
 	campuses : []
 });
 
@@ -265,8 +181,8 @@ function getPosition(handler) {
 }
 
 function getClusterLocations(position, handler) {
-    $.getJSON("http://www.birminghamdev1.bham.ac.uk/web_services/Clusters.svc/nearestpc?lat=" + position.coords.latitude + "&long=" + position.coords.longitude,
-    //$.getJSON("http://www.birmingham.ac.uk/web_services/Clusters.svc/nearestpc?lat=" + position.coords.latitude + "&long=" + position.coords.longitude,
+    
+    $.getJSON("http://www.birmingham.ac.uk/web_services/Clusters.svc/nearestpc?lat=" + position.coords.latitude + "&long=" + position.coords.longitude,
 			function(data) {
                 var locations = [];
                 $.each(data, function() {
@@ -287,7 +203,7 @@ function getClusterLocations(position, handler) {
 }
 
 function getMaps(handler) {
-     $.getJSON("http://www.birminghamdev1.bham.ac.uk/web_services/Clusters.svc/maps",
+     $.getJSON("http://www.birmingham.ac.uk/web_services/Clusters.svc/maps",
 			function(data) {
                 var campuses = [];
                 $.each(data, function() {
@@ -305,7 +221,7 @@ function getMaps(handler) {
 }
 
 function getBuildingsForMaps(map, handler) {
-     $.getJSON("http://www.birminghamdev1.bham.ac.uk/web_services/Clusters.svc/maps/" + map + "/buildings",
+     $.getJSON("http://www.birmingham.ac.uk/web_services/Clusters.svc/maps/" + map + "/buildings",
 			function(data) {
                 var buildings = [];
                 $.each(data, function() {
@@ -324,7 +240,7 @@ function getBuildingsForMaps(map, handler) {
 }
 
 function getClustersForBuildings(building, handler) {
-     $.getJSON("http://www.birminghamdev1.bham.ac.uk/web_services/Clusters.svc/buildings/" + building + "/clusters",
+     $.getJSON("http://www.birmingham.ac.uk/web_services/Clusters.svc/buildings/" + building + "/clusters",
 			function(data) {
                 var clusters = [];
                 $.each(data, function() {
@@ -386,7 +302,6 @@ function nearestShow(e) {
     var iteration = function() {
 		getPosition(function(position) {
 			// Use Google API to get the location data for the current coordinates
-			//var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             
 			getClusterLocations(position, function(locations) {
                     
@@ -401,7 +316,7 @@ function nearestShow(e) {
 }
 
 function onGeolocationError(error) {
-	//alert(error.message);
+
     $(".offlineMessage").html("<span class='err'>" + error.message + "</span>");
 }
 
@@ -457,15 +372,12 @@ function setClustersViews(locations) {
         });
         
     }
-    
-    
 	
 	$("#clusters-listview").kendoMobileListView({
 		dataSource: kendo.data.DataSource.create({ data: locations}),
 		template: $("#clusters-listview-template").html()
 	});
     
-   
 }
 
 function addInfoWindow(map, marker, message) {
