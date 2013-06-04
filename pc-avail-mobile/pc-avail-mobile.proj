@@ -14,7 +14,7 @@
     <BundleVersion>2.0</BundleVersion>
     <iOSDisplayName />
     <iOSDeviceFamily>1;2</iOSDeviceFamily>
-    <AndroidVersionCode>1</AndroidVersionCode>
+    <AndroidVersionCode>2</AndroidVersionCode>
     <iOSBackgroundMode />
   </PropertyGroup>
   <ItemGroup>
