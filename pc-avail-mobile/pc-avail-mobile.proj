@@ -11,10 +11,10 @@
     <DeviceOrientations>Portrait;Landscape</DeviceOrientations>
     <iOSStatusBarStyle>Default</iOSStatusBarStyle>
     <AndroidHardwareAcceleration>false</AndroidHardwareAcceleration>
-    <BundleVersion>2.0</BundleVersion>
+    <BundleVersion>2.1</BundleVersion>
     <iOSDisplayName />
     <iOSDeviceFamily>1;2</iOSDeviceFamily>
-    <AndroidVersionCode>3</AndroidVersionCode>
+    <AndroidVersionCode>4</AndroidVersionCode>
     <iOSBackgroundMode />
   </PropertyGroup>
   <ItemGroup>
