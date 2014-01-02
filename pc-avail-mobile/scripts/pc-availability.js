@@ -38,7 +38,7 @@ var newsTestData = [
 var newsDataSource = new kendo.data.DataSource({
                         transport: {
                             // specify the XML file to read. The same as read: { url: "books.xml" }
-                            read: "http://www.bhamlive3.bham.ac.uk/webteam/pcavailability/news/index.aspx?Listing_SyndicationType=1"
+                            read: "http://www.birmingham.ac.uk/webteam/pcavailability/news/index.aspx?Listing_SyndicationType=1"
                         },
                         schema: {
                             // specify the the schema is XML

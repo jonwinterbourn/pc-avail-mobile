@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>f85529da-eac1-48ae-bd39-261eec02f8ea</ProjectGuid>
@@ -17,84 +17,5 @@
     <AndroidVersionCode>4</AndroidVersionCode>
     <iOSBackgroundMode />
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="App_Resources" />
-    <Folder Include="App_Resources\iOS">
-      <Platform>iOS</Platform>
-    </Folder>
-    <Folder Include="App_Resources\Android">
-      <Platform>Android</Platform>
-    </Folder>
-    <Folder Include="App_Resources\Android\drawable-hdpi">
-      <Platform>Android</Platform>
-    </Folder>
-    <Folder Include="App_Resources\Android\drawable-mdpi">
-      <Platform>Android</Platform>
-    </Folder>
-    <Folder Include="App_Resources\Android\drawable-ldpi">
-      <Platform>Android</Platform>
-    </Folder>
-    <Folder Include="App_Resources\Android\drawable-nodpi">
-      <Platform>Android</Platform>
-    </Folder>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="App_Resources\iOS\icon.png" />
-    <Resource Include="App_Resources\iOS\icon@2x.png" />
-    <Resource Include="App_Resources\iOS\icon-72.png" />
-    <Resource Include="App_Resources\iOS\icon-72@2x.png" />
-    <Resource Include="App_Resources\iOS\Icon-Small.png" />
-    <Resource Include="App_Resources\iOS\Icon-Small@2x.png" />
-    <Resource Include="App_Resources\iOS\Icon-Small-50.png" />
-    <Resource Include="App_Resources\iOS\Icon-Small-50@2x.png" />
-    <Resource Include="App_Resources\iOS\Default.png" />
-    <Resource Include="App_Resources\iOS\Default@2x.png" />
-    <Resource Include="App_Resources\iOS\Default-568h@2x.png" />
-    <Resource Include="App_Resources\iOS\Default-Portrait.png" />
-    <Resource Include="App_Resources\iOS\Default-Landscape.png" />
-    <Resource Include="App_Resources\iOS\Default-Portrait@2x.png" />
-    <Resource Include="App_Resources\iOS\Default-Landscape@2x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="App_Resources\Android\drawable-hdpi\icon.png" />
-    <Resource Include="App_Resources\Android\drawable-mdpi\icon.png" />
-    <Resource Include="App_Resources\Android\drawable-ldpi\icon.png" />
-    <Resource Include="App_Resources\Android\drawable-nodpi\splashscreen.9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="images\computers.png" />
-    <Content Include="images\computers_amber.png" />
-    <Content Include="images\computers_black.png" />
-    <Content Include="images\computers_red.png" />
-    <Content Include="images\holiday.png" />
-    <Content Include="index.html" />
-    <Content Include="kendo\js\jquery.min.js" />
-    <Content Include="kendo\js\kendo.mobile.min.js" />
-    <Content Include="kendo\styles\images\back.png" />
-    <Content Include="kendo\styles\images\KendoUI.ttf" />
-    <Content Include="kendo\styles\images\KendoUI.woff" />
-    <Content Include="kendo\styles\kendo.pcavailability.css" />
-    <Content Include="kendo\styles\kendo.mobile.all.min.css" />
-    <Content Include="scripts\campus.js" />
-    <Content Include="scripts\cluster.js" />
-    <Content Include="scripts\building.js" />
-    <Content Include="scripts\pc-availability.js" />
-    <Content Include="styles\main.css" />
-    <Content Include="cordova.ios.js">
-      <Platform>iOS</Platform>
-      <TargetName>cordova.js</TargetName>
-    </Content>
-    <Content Include="cordova.android.js">
-      <Platform>Android</Platform>
-      <TargetName>cordova.js</TargetName>
-    </Content>
-    <Content Include="styles\phone-1280.css" />
-    <Content Include="styles\phone-480.css" />
-    <Content Include="styles\phone-800.css" />
-    <Content Include="styles\tablet-1024-hdpi.css" />
-    <Content Include="styles\tablet-1024-ldpi.css" />
-    <Content Include="styles\tablet-1280.css" />
-    <Content Include="styles\tablet-600-1024.css" />
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Telerik\ICE\Tools\Mobile\MobileTools.targets" />
 </Project>
