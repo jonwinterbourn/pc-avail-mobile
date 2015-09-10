@@ -338,7 +338,7 @@ function setClustersViews(locations) {
 			title: locations[index].address.replace(/(&nbsp)/g," ") + " (" + locations[index].pcsavailable + ")",
 			icon: pinImageWarning
 		});
-        if (locations[index].roombooked == "true") {
+        if (locations[index].RoomBooked == "true") {
             marker.icon = pinImageBad;
             marker.title = locations[index].address.replace(/(&nbsp)/g," ") + " (room unavailable)";
         }
